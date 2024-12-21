@@ -3,6 +3,6 @@
 RewriteEngine On
 DirectoryIndex REDIRECT
 
-RewriteRule ^.* index.php [NC,QSA,L]
+RewriteRule ^.* index.html [NC,QSA,L]
 
 </IfModule>
